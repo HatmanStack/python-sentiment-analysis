@@ -1,11 +1,9 @@
 steps:         
-  - name: gcr.io/cloud-builders/gcloud
-    entrypoint: 'bash'
-    args: [ '-c', 'gcloud', 'storage', 'cp', '-R', 'gs://gemenielabs-stocks_cloudbuild/pytorch', '.' ]
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [ 'storage', 'cp', '-R', 'gs://gemenielabs-stocks_cloudbuild/pytorch', '.' ]
      
-  - name: 'docker'
-    entrypoint: 'bash'
-    args: [ '-c', 'docker', 'build',  'us-central1-docker.pkg.dev/$PROJECT_ID/stocks/myimage', '.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/stocks/myimage', '.' ]
    
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/stocks/myimage']
