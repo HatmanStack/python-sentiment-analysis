@@ -3,6 +3,7 @@ steps:
     args: [ 'storage', 'cp', '-R', 'gs://gemenielabs-stocks_cloudbuild/pytorch', '.' ]
      
   - name: 'gcr.io/cloud-builders/docker'
+<<<<<<< HEAD
     args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/stocks/sentiment-analysis', '.' ]
    
   - name: 'gcr.io/cloud-builders/docker'
@@ -15,6 +16,20 @@ steps:
            '--allow-unauthenticated']   
 images:
   - us-central1-docker.pkg.dev/$PROJECT_ID/stocks/sentiment-analysis
+=======
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/stocks/myimage', '.' ]
+   
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/stocks/myimage']
+    
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['run', 'deploy', 'stocks-backend-sentiment', '--image', 
+           'us-central1-docker.pkg.dev/$PROJECT_ID/stocks/myimage',
+           '--region', 'us-central1', '--platform', 'managed',
+           '--allow-unauthenticated']   
+images:
+  - us-central1-docker.pkg.dev/$PROJECT_ID/stocks/myimage
+>>>>>>> 322302ba419de674e1cf14fadd907bb10c3dbefa
   
 
       
